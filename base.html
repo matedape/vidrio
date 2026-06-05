@@ -1,0 +1,27 @@
+<Doctype html>
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Vidrio empañado</title>
+            <link rel ="stylesheet" href = "style.css">
+        </head>
+        <body>
+            <div class="temporizador">
+    Próximo vapor en: <span id="tiempo">120</span>s
+</div>
+<button id="btnCaptura" class="btn-captura">
+    📸 Guardar Foto
+</button>
+            <div class="fondo"> </div>
+            <div class="contenedor">
+                <canvas id="vidrio"></canvas>
+                <div class="instrucciones">
+                <h2>Vidrio empañado</h2>
+                <p>Pasa el mouse o el dedo para limpiarlo</p>
+                </div>
+            </div>
+            
+            <script src="script.js"></script>
+        </body>
+    </html>

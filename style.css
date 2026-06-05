@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html{
+height: 100%;
+width: 100%;
+overflow: hidden;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: #000;
+}
+.fondo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, hsl(230, 97%, 48%), #1a7bf1, #4ae3f7, #96c7fc);
+    background-size: 400% 400%;
+    animation: demanarfondo 15s ease infinite;
+    z-index: 1;
+}
+@keyframes demanarfondo{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+}
+.temporizador {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    color: rgb(126, 126, 138);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    pointer-events: none; /* Que no moleste si pasás el mouse por arriba */
+}
+#tiempo {
+    color: #7a1ded; /* Un color celeste vivo para que resalte el número */
+    font-size: 1.1rem;
+}
+
+.btn-captura {
+    position: absolute;
+    top: 75px; /* Lo ponemos abajo del temporizador */
+    right: 20px;
+    z-index: 10;
+    color: rgb(126, 126, 138);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-captura:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05); /* Se agranda un cachito al pasar el mouse */
+}
+
+.btn-captura:active {
+    transform: scale(0.95); /* Efecto de hundirse al hacer click */
+}
+.contenedor{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.65), 
+                inset 0 0 200px rgba(255, 255, 255, 0.4);
+}
+canvas
+{
+position: absolute;
+top:0;
+left:0;
+width: 100%;
+height: 100%;
+cursor: crosshair;
+z-index: 2;
+}
+.instrucciones.oculto {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.instrucciones {
+    position: relative;
+    z-index: 3;
+    color: white;
+    text-align: center;
+    pointer-events: none; /* Para que no moleste al dibujar con el mouse */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px 40px;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease, visibility 0.5s ease; 
+}
+.instrucciones h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
