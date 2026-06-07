@@ -1,14 +1,17 @@
 const canvas = document.getElementById('vidrio') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 const cartelInstrucciones = document.querySelector('.instrucciones') as HTMLDivElement;
-const tiempoSpan = document.getElementById('tiempo') as HTMLSpanElement;
 const btnCaptura = document.getElementById('btnCaptura') as HTMLButtonElement;
+const btnReset = document.getElementById('btnReset') as HTMLButtonElement;
+const inputGrosor = document.getElementById('grosor') as HTMLInputElement;
+const panelControles = document.getElementById('panelControles') as HTMLDivElement;
+const btnMinimizar = document.getElementById('btnMinimizar') as HTMLSpanElement;
 let dibujando: boolean = false;
-let tiempoRestante: number = 120;
+let grosorPincel: number = 40;
 
 // Configuración unificada del pincel/goma
 function configurarPincel(): void {
-    ctx.lineWidth = 40; // Grosor del dedo que limpia
+    ctx.lineWidth = grosorPincel; 
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 }
@@ -17,8 +20,6 @@ function configurarPincel(): void {
 function ajustarPantalla(): void {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
-    // Al cambiar el tamaño el canvas se resetea por completo, reconfiguramos pincel y fondo
     configurarPincel();
     pintarCapaVidrio();
 }
@@ -54,32 +55,24 @@ function limpiar(e: MouseEvent | TouchEvent): void {
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(clientX, clientY);
+
+}
+if (btnReset) {
+    btnReset.addEventListener('click', () => {
+        pintarCapaVidrio();
+        configurarPincel();
+        // Volvemos a mostrar las instrucciones si se habían ocultado
+        if (cartelInstrucciones) {
+            cartelInstrucciones.classList.remove('oculto');
+        }
+    });
 }
 
-
-
-function iniciarContador(): void {
-    setInterval(() => {
-        tiempoRestante--;
-
-        // Buscamos el elemento adentro del bucle por seguridad si no cargó al principio
-        const span = document.getElementById('tiempo') as HTMLSpanElement;
-        if (span) {
-            span.innerText = tiempoRestante.toString();
-        }
-
-        // Cuando llega a cero, se empaña el vidrio de nuevo
-       if (tiempoRestante <= 0) {
-            pintarCapaVidrio(); 
-            configurarPincel();
-            
-            if (cartelInstrucciones) {
-                cartelInstrucciones.classList.remove('oculto');
-            }
-            
-            tiempoRestante = 120; 
-        }
-    }, 1000); 
+if (inputGrosor) {
+    inputGrosor.addEventListener('input', () => {
+        grosorPincel = parseInt(inputGrosor.value);
+        configurarPincel(); // Actualiza el contexto del canvas al toque
+    });
 }
 
 
@@ -109,12 +102,27 @@ if (btnCaptura) {
 
             // 5. Truco del enlace fantasma para forzar la descarga en la compu o celu
             const enlaceDescarga = document.createElement('a');
-            enlaceDescarga.download = 'mi-dibujo-espejo.png'; // Nombre del archivo
+            enlaceDescarga.download = 'mi-espejo.png'; // Nombre del archivo
             enlaceDescarga.href = urlImagen;
             enlaceDescarga.click(); // Forzamos el click de descarga
         }
     });
 }
+
+if (btnMinimizar && panelControles) {
+    btnMinimizar.addEventListener('click', () => {
+        // Alternamos la clase minimizado
+        panelControles.classList.toggle('minimizado');
+
+        // Cambiamos el emoticón según el estado del panel
+        if (panelControles.classList.contains('minimizado')) {
+            btnMinimizar.innerText = '➕'; // Si está cerrado, muestra el más para abrir
+        } else {
+            btnMinimizar.innerText = '➖'; // Si está abierto, muestra el menos para cerrar
+        }
+    });
+}
+
 // Eventos para el Mouse
 canvas.addEventListener('mousedown', (e: MouseEvent) => {
     dibujando = true;
@@ -150,5 +158,4 @@ window.addEventListener('resize', ajustarPantalla);
 // 🚀 INICIALIZACIÓN SEGURA: Esperamos a que la ventana cargue TODO el HTML antes de ejecutar el JS
 window.addEventListener('load', () => {
     ajustarPantalla();
-    iniciarContador(); // Movemos el inicio acá adentro para que no dé null
 });

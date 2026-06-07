@@ -1,27 +1,38 @@
-<Doctype html>
-    <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Vidrio empañado</title>
-            <link rel ="stylesheet" href = "style.css">
-        </head>
-        <body>
-            <div class="temporizador">
-    Próximo vapor en: <span id="tiempo">120</span>s
-</div>
-<button id="btnCaptura" class="btn-captura">
-    📸 Guardar Foto
-</button>
-            <div class="fondo"> </div>
-            <div class="contenedor">
-                <canvas id="vidrio"></canvas>
-                <div class="instrucciones">
-                <h2>Vidrio empañado</h2>
-                <p>Pasa el mouse o el dedo para limpiarlo</p>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi vidrio empañado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="panelControles" class="panel-controles">
+        
+        <span id="btnMinimizar" class="btn-minimizar">➖</span>
+        
+        <div class="contenido-panel">
+            <button id="btnCaptura" class="btn-captura">📸 Guardar Foto</button>
+            <button id="btnReset" class="btn-interactivo">🔄 Volver a Empañar</button>
             
-            <script src="script.js"></script>
-        </body>
-    </html> 
+            <div class="control-grosor">
+                <label for="grosor">Grosor del dedo:</label>
+                <input type="range" id="grosor" min="10" max="100" value="40">
+            </div>
+        </div>
+    </div>
+
+    <div class="fondo"></div>
+    
+    <div class="contenedor">
+        <canvas id="vidrio"></canvas>
+        <div class="instrucciones">
+            <h2>Vidrio empañado</h2>
+            <p>Pasa el mouse o el dedo para limpiarlo</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
